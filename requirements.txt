@@ -1,0 +1,10 @@
+llama-index
+qdrant-client
+pymupdf
+transformers
+sentence-transformers
+torch
+
+# Optional: if you use HuggingFace huggingface hub or tokenizers
+huggingface-hub
+
