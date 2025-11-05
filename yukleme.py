@@ -3,7 +3,7 @@ Document upload module for loading and indexing documents into Qdrant vector sto
 """
 from llama_index.core import SimpleDirectoryReader, StorageContext
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
-from qdrant_connection import vector_store, index
+from qdrant_connection import vector_store
 from llama_index.core.node_parser import SentenceSplitter
 from llama_index.core import VectorStoreIndex
 import os

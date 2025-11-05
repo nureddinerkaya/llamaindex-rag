@@ -6,7 +6,6 @@ Reads Qdrant connection info from environment variables if available.
 """
 import os
 
-from llama_index.core.indices.vector_store.base import VectorStoreIndex
 from llama_index.vector_stores.qdrant import QdrantVectorStore
 import qdrant_client
 
@@ -20,6 +19,5 @@ client = qdrant_client.QdrantClient(
     api_key=QDRANT_API_KEY,
 )
 
-# Expose vector_store and index (used by yukleme.py)
+# Expose vector_store (used by yukleme.py and other modules)
 vector_store = QdrantVectorStore(client=client, collection_name="documents")
-index = VectorStoreIndex.from_vector_store(vector_store=vector_store)
