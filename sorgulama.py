@@ -5,7 +5,7 @@ from llama_index.core.schema import NodeWithScore
 from typing import Optional
 
 # 1. Create Query Embedding
-query_str = "Can you tell me about the key concepts for safety finetuning"
+query_str = "yaratılışımızın sebebi nedir?"
 query_embedding = embed_model.get_query_embedding(query_str)
 
 # 2. Query Vector Database
@@ -20,7 +20,8 @@ vector_store_query = VectorStoreQuery(
 
 # returns a VectorStoreQueryResult
 query_result = vector_store.query(vector_store_query)
-print(query_result.nodes[0].get_content())
+#print(query_result.nodes[0].get_content())
+
 
 # 3. Parse Results into a Set of Nodes
 nodes_with_scores = []
@@ -29,3 +30,6 @@ for index, node in enumerate(query_result.nodes):
     if query_result.similarities is not None:
         score = query_result.similarities[index]
     nodes_with_scores.append(NodeWithScore(node=node, score=score))
+
+for n in nodes_with_scores:
+    print(f"Score: {n.score}, Content: {n.node.get_content()}")
