@@ -1,8 +1,11 @@
 from qdrant_connection import vector_store
-from yukleme import embed_model
+from yukleme import set_embed_model
 from llama_index.core.vector_stores import VectorStoreQuery
 from llama_index.core.schema import NodeWithScore
 from typing import Optional
+
+# Initialize embedding model
+embed_model = set_embed_model("BAAI/bge-m3")
 
 # 1. Create Query Embedding
 query_str = "Can you tell me about the key concepts for safety finetuning"
