@@ -5,7 +5,7 @@ from llama_index.core.schema import NodeWithScore
 from typing import Optional
 
 # 1. Create Query Embedding
-query_str = "yaratılışımızın sebebi nedir?"
+query_str = "fine-tuning nedir?"
 query_embedding = embed_model.get_query_embedding(query_str)
 
 # 2. Query Vector Database
