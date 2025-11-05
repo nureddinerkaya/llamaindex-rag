@@ -28,6 +28,9 @@ AVAILABLE_MODELS = {
     }
 }
 
+# Content preview length for query results
+CONTENT_PREVIEW_LENGTH = 500
+
 
 def display_model_menu():
     """Display available embedding models."""
@@ -149,7 +152,7 @@ def handle_query(embed_model_instance):
             print(f"Result {index}:")
             if score is not None:
                 print(f"  Similarity Score: {score:.4f}")
-            print(f"  Content:\n  {node.get_content()[:500]}...")
+            print(f"  Content:\n  {node.get_content()[:CONTENT_PREVIEW_LENGTH]}...")
             print("-" * 80)
             
     except Exception as e:

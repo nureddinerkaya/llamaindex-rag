@@ -1,0 +1,31 @@
+==================================================
+ RAG CLI Application - LlamaIndex + Qdrant
+==================================================
+
+=== Embedding Model Selection ===
+1. bge-m3 (BAAI/bge-m3)
+2. multilingual-intfloat (intfloat/multilingual-e5-large)
+===================================
+
+Select embedding model (1-2): 1
+
+✓ Selected model: bge-m3
+
+=== Action Selection ===
+1. Upload document
+2. Query documents
+=========================
+
+Select action (1-2): 1
+
+=== Document Upload ===
+Enter filename (file should be in the same directory): llama2.pdf
+
+Uploading document: llama2.pdf
+Please wait, this may take a moment...
+
+✓ SUCCESS: Document uploaded and indexed successfully!
+
+==================================================
+ Thank you for using RAG CLI!
+==================================================

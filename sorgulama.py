@@ -4,10 +4,11 @@ from llama_index.core.vector_stores import VectorStoreQuery
 from llama_index.core.schema import NodeWithScore
 from typing import Optional
 
+# This is example code demonstrating how to query the vector store
 # Initialize embedding model
 embed_model = set_embed_model("BAAI/bge-m3")
 
-# 1. Create Query Embedding
+# 1. Create Query Embedding (example query)
 query_str = "Can you tell me about the key concepts for safety finetuning"
 query_embedding = embed_model.get_query_embedding(query_str)
 
