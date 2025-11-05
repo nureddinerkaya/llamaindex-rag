@@ -7,8 +7,13 @@ Reads Qdrant connection info from environment variables if available.
 import os
 
 from llama_index.core.indices.vector_store.base import VectorStoreIndex
+from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.vector_stores.qdrant import QdrantVectorStore
 import qdrant_client
+
+# 0. Embed Model
+embed_model = HuggingFaceEmbedding(model_name="Qwen/Qwen3-Embedding-0.6B")
+
 
 # When running Qdrant locally in Docker, the default URL is http://localhost:6333
 QDRANT_URL = os.getenv("QDRANT_URL", "http://localhost:6333")
@@ -22,4 +27,5 @@ client = qdrant_client.QdrantClient(
 
 # Expose vector_store and index (used by yukleme.py)
 vector_store = QdrantVectorStore(client=client, collection_name="documents")
-index = VectorStoreIndex.from_vector_store(vector_store=vector_store)
+# Pass the explicitly configured embed_model to avoid resolving the default (OpenAI) embedder on import
+index = VectorStoreIndex.from_vector_store(vector_store=vector_store, embed_model=embed_model)

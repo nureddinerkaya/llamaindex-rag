@@ -1,5 +1,5 @@
-from qdrant_connection import vector_store
-from yukleme import embed_model
+from model_ve_db import vector_store
+from model_ve_db import embed_model
 from llama_index.core.vector_stores import VectorStoreQuery
 from llama_index.core.schema import NodeWithScore
 from typing import Optional

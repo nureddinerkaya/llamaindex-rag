@@ -1,11 +1,7 @@
 from llama_index.readers.file import PyMuPDFReader
 from llama_index.core.node_parser import SentenceSplitter
 from llama_index.core.schema import TextNode
-from llama_index.embeddings.huggingface import HuggingFaceEmbedding
-from qdrant_connection import vector_store
-
-# 0. Embed Model
-embed_model = HuggingFaceEmbedding(model_name="Qwen/Qwen3-Embedding-0.6B")
+from model_ve_db import vector_store, embed_model
 
 
 # The logic that used to run at import time (load, split, embed, add) is now in a function
