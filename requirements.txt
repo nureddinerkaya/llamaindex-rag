@@ -1,4 +1,6 @@
 llama-index
+llama-index-embeddings-huggingface
+llama-index-vector-stores-qdrant
 qdrant-client
 pymupdf
 transformers
