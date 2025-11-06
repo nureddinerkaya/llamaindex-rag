@@ -12,7 +12,11 @@ pip install -r requirements.txt
 
 2. Start Qdrant (if not already running):
 ```bash
+# For development/testing
 docker run -p 6333:6333 qdrant/qdrant
+
+# For production (runs in background)
+docker run -d -p 6333:6333 qdrant/qdrant
 ```
 
 Or set environment variables for remote Qdrant:

@@ -82,7 +82,7 @@ async def upload_file(
         UploadResponse with status message and number of nodes created
     """
     # Validate file type
-    if not file.filename.endswith('.pdf'):
+    if not file.filename or not file.filename.endswith('.pdf'):
         raise HTTPException(
             status_code=400,
             detail="Only PDF files are supported"
@@ -121,9 +121,20 @@ async def upload_file(
             nodes.append(node)
         
         # Generate embeddings for each node
-        for node in nodes:
-            node_embedding = embedding_model.get_text_embedding(node.get_content())
-            node.embedding = node_embedding
+        # Extract all text content for batch embedding
+        texts_to_embed = [node.get_content() for node in nodes]
+        
+        # Get embeddings in batch (if the model supports it) or one by one
+        try:
+            # Try batch embedding first (more efficient)
+            embeddings = embedding_model.get_text_embedding_batch(texts_to_embed)
+            for node, embedding in zip(nodes, embeddings):
+                node.embedding = embedding
+        except (AttributeError, NotImplementedError):
+            # Fall back to individual embeddings if batch is not supported
+            for node in nodes:
+                node_embedding = embedding_model.get_text_embedding(node.get_content())
+                node.embedding = node_embedding
         
         # Add nodes to vector store
         vector_store.add(nodes)
