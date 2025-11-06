@@ -26,6 +26,6 @@ client = qdrant_client.QdrantClient(
 )
 
 # Expose vector_store and index (used by yukleme.py)
-vector_store = QdrantVectorStore(client=client, collection_name="documents")
+vector_store = QdrantVectorStore(client=client, collection_name="faq")
 # Pass the explicitly configured embed_model to avoid resolving the default (OpenAI) embedder on import
 index = VectorStoreIndex.from_vector_store(vector_store=vector_store, embed_model=embed_model)
