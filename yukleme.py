@@ -5,8 +5,9 @@ from model_ve_db import vector_store, embed_model
 
 
 # The logic that used to run at import time (load, split, embed, add) is now in a function
+FILE = "./data/guncelmeseleler1.pdf"
 
-def build_nodes_from_file(file_path: str = "./data/llama2.pdf"):
+def build_nodes_from_file(file_path: str = FILE):
     """Load a file, split into text chunks, construct TextNode objects and return the node list.
 
     This function does NOT add nodes to the vector store; it only returns them so the caller
@@ -50,7 +51,7 @@ def build_nodes_from_file(file_path: str = "./data/llama2.pdf"):
     return nodes
 
 
-def upload_nodes_from_file(file_path: str = "./data/llama2.pdf"):
+def upload_nodes_from_file(file_path: str = FILE):
     """Build nodes from a file and add them to the configured vector store.
 
     Call this function explicitly when you want to index/upload documents. Importing

@@ -12,8 +12,27 @@ from llama_index.vector_stores.qdrant import QdrantVectorStore
 import qdrant_client
 
 # 0. Embed Model
-embed_model = HuggingFaceEmbedding(model_name="Qwen/Qwen3-Embedding-0.6B")
+try:
+    import torch
+except Exception:
+    torch = None
 
+# Detect CUDA and set model kwargs to prefer GPU (fp16) when available
+cuda_available = (torch is not None) and torch.cuda.is_available()
+
+if cuda_available:
+    model_kwargs = {
+        "device_map": "auto",
+        "torch_dtype": getattr(torch, "float16", None),
+        "low_cpu_mem_usage": True,
+    }
+else:
+    model_kwargs = {"device_map": "cpu"}
+
+embed_model = HuggingFaceEmbedding(
+    model_name="Qwen/Qwen3-Embedding-0.6B",
+    model_kwargs=model_kwargs,
+)
 
 # When running Qdrant locally in Docker, the default URL is http://localhost:6333
 QDRANT_URL = os.getenv("QDRANT_URL", "http://localhost:6333")
@@ -26,6 +45,6 @@ client = qdrant_client.QdrantClient(
 )
 
 # Expose vector_store and index (used by yukleme.py)
-vector_store = QdrantVectorStore(client=client, collection_name="documents")
+vector_store = QdrantVectorStore(client=client, collection_name="kotku")
 # Pass the explicitly configured embed_model to avoid resolving the default (OpenAI) embedder on import
 index = VectorStoreIndex.from_vector_store(vector_store=vector_store, embed_model=embed_model)
