@@ -15,6 +15,32 @@ import qdrant_client
 embed_model = HuggingFaceEmbedding(model_name="Qwen/Qwen3-Embedding-0.6B")
 
 
+def get_embed_model(model_name: str = "qwen"):
+    """Get embedding model by name.
+    
+    Args:
+        model_name: Name of the model to use. Options:
+            - "qwen" (default): Qwen/Qwen3-Embedding-0.6B
+            - "bge": BAAI/bge-small-en
+            - "m3": BAAI/bge-m3
+            - "multilingual": intfloat/multilingual-e5-base
+    
+    Returns:
+        HuggingFaceEmbedding instance
+    """
+    model_map = {
+        "qwen": "Qwen/Qwen3-Embedding-0.6B",
+        "bge": "BAAI/bge-small-en",
+        "m3": "BAAI/bge-m3",
+        "multilingual": "intfloat/multilingual-e5-base",
+    }
+    
+    model_name_lower = model_name.lower()
+    actual_model_name = model_map.get(model_name_lower, model_map["qwen"])
+    
+    return HuggingFaceEmbedding(model_name=actual_model_name)
+
+
 # When running Qdrant locally in Docker, the default URL is http://localhost:6333
 QDRANT_URL = os.getenv("QDRANT_URL", "http://localhost:6333")
 QDRANT_API_KEY = os.getenv("QDRANT_API_KEY", None)
